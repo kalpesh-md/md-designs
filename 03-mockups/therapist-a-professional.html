@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoodScale — Therapist Dashboard · Design A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../02-tokens/tokens.css">
+<style>
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); margin-bottom: var(--space-5); }
+  .metric { padding: 18px 20px; }
+  .metric .label { font-size: 13px; font-weight: 500; color: var(--ink-secondary); }
+  .metric .value { font-size: 30px; font-weight: 700; letter-spacing: -0.03em; margin-top: 4px; }
+
+  .cols { display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-5); }
+
+  .session { display: flex; align-items: center; gap: 16px; padding: 16px 20px; border-top: 1px solid var(--border); }
+  .session.live { background: var(--live-soft); }
+  .session .who { flex: 1; min-width: 0; }
+  .session .name { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .session .email { font-size: 13px; color: var(--ink-secondary); }
+  .session .when { text-align: right; font-size: 13px; color: var(--ink-secondary); }
+  .session .when strong { display: block; color: var(--ink); font-weight: 600; }
+  .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--live); box-shadow: 0 0 0 4px rgba(59,122,92,.15); }
+  .btn-live { background: var(--live); color: #fff; border: none; border-radius: 10px; padding: 8px 18px; font-size: 13px; font-weight: 600; }
+
+  .avail-stat { padding: 16px; border-radius: 12px; background: var(--brand-soft); border: 1px solid rgba(30,58,95,.12); margin-bottom: 16px; }
+  .avail-stat .label { font-size: 13px; color: var(--ink-secondary); }
+  .avail-stat .value { font-size: 24px; font-weight: 700; margin-top: 4px; }
+  .avail-rows { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; font-size: 13px; }
+  .avail-rows div { display: flex; justify-content: space-between; color: var(--ink-secondary); }
+  .avail-rows strong { color: var(--ink); }
+  .card-pad { padding: 20px; }
+
+  @media (max-width: 1100px) { .metrics { grid-template-columns: 1fr 1fr; } .cols { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body class="palette-a portal-therapist">
+<div class="shell">
+  <aside class="sidebar">
+    <div class="wordmark"><img src="assets/moodscale.png" alt="MoodScale" class="logo-wordmark-lg"></div>
+    <nav class="nav">
+      <a href="#" class="active"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg><span>Dashboard</span></a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Availability</span></a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg><span>Sessions</span></a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Clients</span></a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Messaging</span></a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 2H6a2 2 0 0 0-2 2v16h16V8z"/><path d="M14 2v6h6"/></svg><span>Assessments</span></a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Activities</span></a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>Handbook</span></a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <span class="avatar">AS</span>
+      <div class="who"><div class="name">Dr. Ananya Sharma</div><div class="meta">Therapist</div></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
+      <div>
+        <h1>Welcome back, Dr. Ananya Sharma</h1>
+        <p class="sub">Here's your practice overview</p>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" aria-label="Notifications">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="notif-dot"></span>
+        </button>
+        <span class="avatar">AS</span>
+      </div>
+    </header>
+
+    <section class="metrics">
+      <div class="card metric"><div class="label">Total Bookings</div><div class="value">142</div></div>
+      <div class="card metric"><div class="label">Completed</div><div class="value">118</div></div>
+      <div class="card metric"><div class="label">Upcoming</div><div class="value">17</div></div>
+      <div class="card metric"><div class="label">Cancelled</div><div class="value">7</div></div>
+    </section>
+
+    <div class="cols">
+      <section class="card">
+        <div class="card-head">
+          <div><h2>Upcoming Sessions</h2><div class="meta">Your next scheduled appointments</div></div>
+        </div>
+        <div class="session live">
+          <span class="avatar" style="background:var(--live-soft);color:var(--live);ring:2px solid var(--live)">RM</span>
+          <div class="who">
+            <div class="name">Rahul Mehta <span class="pill" style="background:var(--live-soft);color:var(--live)"><span class="live-dot"></span>LIVE</span></div>
+            <div class="email">rahul.m@email.com</div>
+          </div>
+          <div class="when"><strong>19-Aug-2026</strong>10:00</div>
+          <button class="btn-live">Open</button>
+        </div>
+        <div class="session">
+          <span class="avatar">PK</span>
+          <div class="who">
+            <div class="name">Priya Kapoor</div>
+            <div class="email">priya.k@email.com</div>
+          </div>
+          <div class="when"><strong>19-Aug-2026</strong>12:00</div>
+          <span class="pill pill-info">Video</span>
+          <span class="pill pill-brand">confirmed</span>
+        </div>
+        <div class="session">
+          <span class="avatar">AS</span>
+          <div class="who">
+            <div class="name">Arjun Shah</div>
+            <div class="email">arjun.s@email.com</div>
+          </div>
+          <div class="when"><strong>20-Aug-2026</strong>15:00</div>
+          <span class="pill pill-success">Phone</span>
+          <span class="pill pill-brand">scheduled</span>
+        </div>
+        <div class="session">
+          <span class="avatar">ST</span>
+          <div class="who">
+            <div class="name">Sneha Trivedi</div>
+            <div class="email">sneha.t@email.com</div>
+          </div>
+          <div class="when"><strong>21-Aug-2026</strong>18:00</div>
+          <span class="pill pill-info">Video</span>
+          <span class="pill pill-brand">confirmed</span>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <div><h2>Availability</h2><div class="meta">Your open time slots</div></div>
+        </div>
+        <div class="card-pad">
+          <div class="avail-stat">
+            <div class="label">Available Slots</div>
+            <div class="value">28</div>
+          </div>
+          <a class="btn btn-primary" href="#" style="width:100%;justify-content:center">Manage Availability</a>
+          <div class="avail-rows">
+            <div><span>Next 7 days</span><strong>28 slots</strong></div>
+            <div><span>Avg per day</span><strong>4</strong></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+<div class="design-badge">Design A · Practice overview · existing theme</div>
+</body>
+</html>

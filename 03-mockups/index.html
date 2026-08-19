@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoodScale — Design Exploration Gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../02-tokens/tokens.css">
+<style>
+  body { padding: var(--space-16) var(--space-8); max-width: 1200px; margin: 0 auto; }
+  header.gallery { margin-bottom: var(--space-16); }
+  header.gallery h1 { font-family: var(--font-display); font-size: var(--text-4xl); margin-bottom: var(--space-4); }
+  header.gallery p { color: var(--ink-secondary); max-width: 68ch; font-size: var(--text-lg); line-height: var(--leading-relaxed); }
+  section { margin-bottom: var(--space-20); }
+  section > h2 { font-family: var(--font-display); font-size: var(--text-2xl); margin-bottom: var(--space-2); }
+  section > p.sub { color: var(--ink-tertiary); font-size: var(--text-sm); margin-bottom: var(--space-6); }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  a.tile { display: block; padding: var(--space-6); }
+  .tile .swatch { display: flex; gap: var(--space-2); margin-bottom: var(--space-4); }
+  .tile .swatch span { width: 28px; height: 28px; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+  .tile h3 { font-size: var(--text-lg); margin-bottom: var(--space-1); }
+  .tile .tag { font-size: var(--text-xs); font-weight: 600; color: var(--ink-tertiary); text-transform: uppercase; letter-spacing: 0.06em; }
+  .tile p { color: var(--ink-secondary); font-size: var(--text-sm); margin-top: var(--space-2); line-height: var(--leading-relaxed); }
+  .tile .open { display: inline-flex; align-items: center; gap: 6px; margin-top: var(--space-4); font-size: var(--text-sm); font-weight: 600; color: var(--brand); }
+  footer { color: var(--ink-tertiary); font-size: var(--text-sm); border-top: 1px solid var(--border); padding-top: var(--space-6); }
+  footer a { color: var(--brand); font-weight: 600; }
+</style>
+</head>
+<body class="palette-a">
+
+<header class="gallery">
+  <img src="assets/moodscale_logo1.png" alt="MoodScale" class="logo-wordmark-lg" style="margin-bottom:16px">
+  <span class="pill pill-brand"><span class="dot"></span>Design Exploration · Aug 2026</span>
+  <h1 style="margin-top:16px;">MoodScale Portal Redesign</h1>
+  <p>Nine dashboard home-page variations — three per portal. Every mockup uses the live
+  product theme (navy <code>#1E3A5F</code>, mid blue <code>#2D5A8B</code>, sky, emerald)
+  and the same widgets that already exist on each portal home. A/B/C differ only in
+  layout personality. Open any tile in a browser tab and resize to preview mobile.</p>
+</header>
+
+<section>
+  <h2>Client Portal — Dashboard</h2>
+  <p class="sub">Post-login home · AI matching, earliest booking, assessments, upcoming session, featured therapists, next actions</p>
+  <div class="grid">
+    <a class="tile card card-interactive" href="client-a-modern-minimalist.html">
+      <div class="swatch"><span style="background:#1e3a5f"></span><span style="background:#2d5a8b"></span><span style="background:#0ea5e9"></span><span style="background:#10b981"></span></div>
+      <span class="tag">Design A · Clean</span>
+      <h3>Structured home</h3>
+      <p>Closest to the current dashboard: greeting, match CTA, then the 1+2 booking/assessment row, session + therapists, and next-action cards.</p>
+      <span class="open">Open mockup →</span>
+    </a>
+    <a class="tile card card-interactive" href="client-b-immersive-wellness.html">
+      <div class="swatch"><span style="background:#1e3a5f"></span><span style="background:#2d5a8b"></span><span style="background:#0ea5e9"></span><span style="background:#10b981"></span></div>
+      <span class="tag">Design B · Visual</span>
+      <h3>Match-first</h3>
+      <p>Navy AI-match hero, three therapist match cards, then upcoming session, earliest booking, assessments, and next actions as a bento.</p>
+      <span class="open">Open mockup →</span>
+    </a>
+    <a class="tile card card-interactive" href="client-c-data-driven.html">
+      <div class="swatch"><span style="background:#1e3a5f"></span><span style="background:#2d5a8b"></span><span style="background:#0ea5e9"></span><span style="background:#10b981"></span></div>
+      <span class="tag">Design C · Compact</span>
+      <h3>Two-column scan</h3>
+      <p>Dense two-column layout: matches, booking, and assessments on the left; upcoming session, featured therapists, and next actions on the right.</p>
+      <span class="open">Open mockup →</span>
+    </a>
+  </div>
+</section>
+
+<section>
+  <h2>Therapist Portal — Dashboard</h2>
+  <p class="sub">Post-login home · Total / Completed / Upcoming / Cancelled · Upcoming sessions · Availability</p>
+  <div class="grid">
+    <a class="tile card card-interactive" href="therapist-a-professional.html">
+      <div class="swatch"><span style="background:#1e3a5f"></span><span style="background:#2d5a8b"></span><span style="background:#3b7a5c"></span><span style="background:#f7f8fa"></span></div>
+      <span class="tag">Design A · Clean</span>
+      <h3>Practice overview</h3>
+      <p>Four booking stats, upcoming sessions with a live Open button, availability card with slot count and Manage Availability.</p>
+      <span class="open">Open mockup →</span>
+    </a>
+    <a class="tile card card-interactive" href="therapist-b-engagement.html">
+      <div class="swatch"><span style="background:#1e3a5f"></span><span style="background:#2d5a8b"></span><span style="background:#3b7a5c"></span><span style="background:#f7f8fa"></span></div>
+      <span class="tag">Design B · Visual</span>
+      <h3>Live session first</h3>
+      <p>The in-progress session is the largest cell. Stats sit underneath; availability is a tall side card with the 28-slot count.</p>
+      <span class="open">Open mockup →</span>
+    </a>
+    <a class="tile card card-interactive" href="therapist-c-task-oriented.html">
+      <div class="swatch"><span style="background:#1e3a5f"></span><span style="background:#2d5a8b"></span><span style="background:#3b7a5c"></span><span style="background:#f7f8fa"></span></div>
+      <span class="tag">Design C · Compact</span>
+      <h3>Day timeline</h3>
+      <p>Stats and availability stacked on the left; upcoming sessions as a time-block timeline on the right, live row highlighted.</p>
+      <span class="open">Open mockup →</span>
+    </a>
+  </div>
+</section>
+
+<section>
+  <h2>Admin Portal — Dashboard</h2>
+  <p class="sub">Post-login home · Revenue / Bookings / Clients / Therapists · Session analytics · Session target · Recent bookings · Cashflow · Activity</p>
+  <div class="grid">
+    <a class="tile card card-interactive" href="admin-a-command-center.html">
+      <div class="swatch"><span style="background:#1e3a5f"></span><span style="background:#2d5a8b"></span><span style="background:#10b981"></span><span style="background:#f7f8fa"></span></div>
+      <span class="tag">Design A · Clean</span>
+      <h3>Command layout</h3>
+      <p>Four KPI cards, analytics + target donut, bookings table, with cashflow and recent activity in a right rail — closest to today.</p>
+      <span class="open">Open mockup →</span>
+    </a>
+    <a class="tile card card-interactive" href="admin-b-focused-metrics.html">
+      <div class="swatch"><span style="background:#1e3a5f"></span><span style="background:#2d5a8b"></span><span style="background:#10b981"></span><span style="background:#f7f8fa"></span></div>
+      <span class="tag">Design B · Visual</span>
+      <h3>Bookings first</h3>
+      <p>Single calm column: compact KPIs, recent bookings as the main table, then analytics, target, cashflow, and activity below.</p>
+      <span class="open">Open mockup →</span>
+    </a>
+    <a class="tile card card-interactive" href="admin-c-visual-analytics.html">
+      <div class="swatch"><span style="background:#1e3a5f"></span><span style="background:#2d5a8b"></span><span style="background:#10b981"></span><span style="background:#f7f8fa"></span></div>
+      <span class="tag">Design C · Compact</span>
+      <h3>Chart-first</h3>
+      <p>Session analytics as a full-width hero, KPIs + target in one strip, then bookings, cashflow, and activity in a three-column footer.</p>
+      <span class="open">Open mockup →</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  Docs: <a href="../01-research/design-pattern-research.md">Pattern research</a> ·
+  <a href="../02-tokens/design-tokens.md">Design tokens</a> ·
+  <a href="../04-rationale/design-rationale.md">Rationale</a> ·
+  <a href="../05-specs/component-specifications.md">Component specs</a>
+</footer>
+
+</body>
+</html>

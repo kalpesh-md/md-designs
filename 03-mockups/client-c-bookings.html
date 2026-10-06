@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoodScale — Bookings · Design C</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../02-tokens/tokens.css">
+<style>
+  .layout { display: grid; grid-template-columns: minmax(0, 1.4fr) 340px; gap: var(--space-5); align-items: start; }
+  .stack { display: flex; flex-direction: column; gap: var(--space-5); }
+  .compact-head { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .compact-head h2 { font-size: 14px; font-weight: 700; }
+  .pad { padding: 16px; }
+
+  .match-row { display: flex; gap: 12px; padding: 12px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); margin-bottom: 10px; transition: border-color 150ms ease, box-shadow 150ms ease; }
+  .match-row:hover { border-color: rgba(30,58,95,.4); box-shadow: 0 4px 12px rgba(30,58,95,.08); }
+  .match-row:last-child { margin-bottom: 0; }
+  .match-row .who { flex: 1; min-width: 0; }
+  .match-row .name { font-size: 13px; font-weight: 600; }
+  .match-row .spec { font-size: 11px; color: var(--ink-tertiary); }
+  .match-row .reason { font-size: 11px; color: var(--ink-secondary); font-style: italic; margin-top: 4px; }
+
+  .dates { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .date-chip { text-align: center; padding: 8px 4px; border: 1px solid var(--border); border-radius: 10px; transition: border-color 140ms ease, background 140ms ease; }
+  .date-chip:hover { border-color: var(--brand-mid); }
+  .date-chip .d { font-size: 10px; color: var(--ink-tertiary); }
+  .date-chip .n { font-size: 18px; font-weight: 700; display: block; }
+  .date-chip.on { border-color: var(--brand); background: var(--brand-soft); color: var(--brand); }
+  .times { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .time-chip { padding: 6px 10px; font-size: 11px; font-weight: 600; border: 1px solid var(--border); border-radius: 8px; transition: border-color 140ms ease, background 140ms ease; }
+  .time-chip:hover { border-color: var(--brand); background: var(--brand-soft); color: var(--brand); }
+
+  .assess-list { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .assess { text-align: center; padding: 10px 6px; border: 1px solid var(--border); border-radius: 10px; transition: border-color 140ms ease, transform 140ms ease; }
+  .assess:hover { transform: translateY(-1px); border-color: var(--brand-mid); }
+  .assess .tag { font-size: 9px; font-weight: 700; letter-spacing: .06em; }
+  .assess .abbr { font-size: 16px; font-weight: 700; display: block; }
+  .assess .lab { font-size: 10px; color: var(--ink-tertiary); }
+
+  .book-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid var(--border); }
+  .book-row:first-child { border-top: none; padding-top: 0; }
+  .book-row .name { font-size: 13px; font-weight: 600; }
+  .book-row .spec { font-size: 11px; color: var(--ink-tertiary); }
+
+  .r-row { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid var(--border); }
+  .r-row:first-child { border-top: none; padding-top: 0; }
+  .r-row .thumb { width: 56px; height: 56px; border-radius: 10px; background: linear-gradient(135deg,#dbeafe,#d1fae5); flex-shrink: 0; }
+  .r-row .name { font-size: 13px; font-weight: 600; }
+  .r-row .spec { font-size: 11px; color: var(--ink-tertiary); }
+  .r-row .price { font-size: 12px; font-weight: 700; margin-top: 2px; }
+
+  @media (max-width: 1100px) { .layout { grid-template-columns: 1fr; } .assess-list { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body class="palette-c portal-client">
+<header class="topbar">
+  <div class="topbar-left">
+    <img src="assets/moodscale_logo1.png" alt="MoodScale" class="logo-wordmark-lg">
+    <span class="topbar-divider"></span>
+    <span class="topbar-title">Bookings</span>
+  </div>
+  <div class="topbar-right">
+    <span class="credit-chip"><img src="assets/icon-192.png" alt="" width="16" height="16"> 3 session credits</span>
+    <button class="icon-btn" aria-label="Notifications">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="notif-dot"></span>
+    </button>
+    <span class="avatar">KS</span>
+  </div>
+</header>
+<div class="shell">
+  <aside class="sidebar">
+    <nav class="nav">
+      <a href="client-c-data-driven.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Dashboard</span></a>
+      <a href="client-c-bookings.html" class="active"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M12 14v4M10 16h4"/></svg><span>Bookings</span></a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span>Sessions</span></a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span>Assessments</span></a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg><span>Credits</span></a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><span>Packages</span></a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M17 14v7M7 14v7M17 3v4M7 3v4M12 21V3"/></svg><span>Nature Retreats</span></a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Messages</span></a>
+      <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg><span>Live Support</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <span class="avatar">KS</span>
+      <div class="who"><div class="name">Kalpesh S.</div><div class="meta">3 session credits</div></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="page-header" style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+      <div>
+        <h1>Bookings</h1>
+        <p class="sub">Quick session, assessment, therapist, or a nature retreat</p>
+      </div>
+      <a class="btn btn-primary" href="#">Match Me with a Therapist</a>
+    </header>
+
+    <div class="layout">
+      <div class="stack">
+        <section class="card">
+          <div class="compact-head">
+            <h2 style="display:flex;align-items:center;gap:8px"><img src="assets/icon-192.png" alt="" width="20" height="20"> Book with a Therapist</h2>
+            <a class="ghost-link" href="#">Browse all →</a>
+          </div>
+          <div class="pad">
+            <div class="match-row">
+              <span class="avatar">DR</span>
+              <div class="who">
+                <div class="name">Dr. Riya Mehta</div>
+                <div class="spec">Anxiety · CBT · ★ 4.9 · Video / Phone</div>
+                <div class="reason">Strong match for sleep anxiety and structured CBT work.</div>
+              </div>
+              <a class="ghost-link" href="#">View →</a>
+            </div>
+            <div class="match-row">
+              <span class="avatar">AK</span>
+              <div class="who">
+                <div class="name">Aarav Kapoor</div>
+                <div class="spec">Couples · Trauma · ★ 4.8 · Video</div>
+                <div class="reason">Aligned with a calm, insight-led style.</div>
+              </div>
+              <a class="ghost-link" href="#">View →</a>
+            </div>
+            <div class="match-row">
+              <span class="avatar">NS</span>
+              <div class="who">
+                <div class="name">Neha Shah</div>
+                <div class="spec">Stress · Mindfulness · ★ 4.7 · Video / Phone</div>
+                <div class="reason">Practical between-session tools.</div>
+              </div>
+              <a class="ghost-link" href="#">View →</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="compact-head">
+            <h2>Earliest Booking</h2>
+            <a class="ghost-link" href="#">View all →</a>
+          </div>
+          <div class="pad">
+            <div class="dates">
+              <div class="date-chip on"><span class="d">Wed</span><span class="n">19</span></div>
+              <div class="date-chip"><span class="d">Thu</span><span class="n">20</span></div>
+              <div class="date-chip"><span class="d">Fri</span><span class="n">21</span></div>
+            </div>
+            <div class="times">
+              <span class="time-chip">10:00 AM</span>
+              <span class="time-chip">12:00 PM · 2</span>
+              <span class="time-chip">3:00 PM</span>
+              <span class="time-chip">6:00 PM</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="compact-head">
+            <h2>Quick Assessment</h2>
+            <a class="ghost-link" href="#">View all →</a>
+          </div>
+          <div class="pad">
+            <div class="assess-list">
+              <div class="assess"><span class="tag" style="color:var(--accent-green)">FREE</span><span class="abbr">BFI-10</span><span class="lab">Personality</span></div>
+              <div class="assess"><span class="tag" style="color:var(--accent-green)">FREE</span><span class="abbr">GAD-7</span><span class="lab">Anxiety</span></div>
+              <div class="assess"><span class="tag" style="color:#db2777">PREMIUM</span><span class="abbr">PHQ-9</span><span class="lab">Depression</span></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="stack">
+        <section class="card">
+          <div class="compact-head">
+            <h2>Nature Retreats</h2>
+            <a class="ghost-link" href="#">View all →</a>
+          </div>
+          <div class="pad">
+            <div class="r-row">
+              <div class="thumb"></div>
+              <div style="flex:1">
+                <div class="name">Forest Mindfulness Weekend</div>
+                <div class="spec">Lonavala · 29 Aug</div>
+                <div class="price">₹4,500 onwards</div>
+              </div>
+            </div>
+            <div class="r-row">
+              <div class="thumb" style="background:linear-gradient(135deg,#e0f2fe,#ccfbf1)"></div>
+              <div style="flex:1">
+                <div class="name">Coastal Reset</div>
+                <div class="spec">Alibaug · 6 Sep</div>
+                <div class="price">₹6,200 onwards</div>
+              </div>
+            </div>
+            <div class="r-row">
+              <div class="thumb" style="background:linear-gradient(135deg,#ecfdf5,#dbeafe)"></div>
+              <div style="flex:1">
+                <div class="name">Mountain Silence</div>
+                <div class="spec">Matheran · 13 Sep</div>
+                <div class="price">₹5,800 onwards</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+<div class="design-badge">Design C · Bookings · existing widgets + retreats</div>
+</body>
+</html>

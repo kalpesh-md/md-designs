@@ -17,14 +17,14 @@ Files, in this order:
 4. therapist-a-session-detail.html — details, notes, MSE, report, join, intake, cancel, client rail
 5. therapist-a-clients.html — search and client list
 6. therapist-a-client-detail.html — identity, session history, assessments
-7. therapist-a-messaging.html — conversation list and chat
-8. therapist-a-assessments.html — search, status, response table
-9. therapist-a-assessment-response.html — client, scores, answers
-10. therapist-a-activities.html — Big Five card only
-11. therapist-a-big-five.html and therapist-a-big-five-results.html — question step and five trait bars
-12. therapist-a-profile.html — identity, stats, basic / professional / reviews
-13. therapist-a-profile-edit.html — basic, professional, banking, password
+7. therapist-a-assessments.html — search, status, response table
+8. therapist-a-assessment-response.html — client, scores, answers
+9. therapist-a-activities.html — Big Five card only
+10. therapist-a-big-five.html and therapist-a-big-five-results.html — question step and five trait bars
+11. therapist-a-profile.html — identity, stats, basic / professional / reviews
+12. therapist-a-profile-edit.html — basic, professional, banking, password
 
+Skip Messaging. That page is already redesigned. Do not edit it.
 Start with Dashboard Design A, then the other Design A pages, then Dashboard B and C.
 Do not add charts, new nav items, or new booking types.
 
@@ -180,21 +180,9 @@ Empty states for both tabs
 
 ---
 
-## Prompt 7 — Messaging
+## Messaging — skip
 
-I am attaching screenshots of LIVE therapist Messages.
-
-Create 03-mockups/therapist-a-messaging.html. Same shell. Set Messaging active.
-
-MESSAGING
-Intent: “talk to this client.” Keep a two-pane chat. Must keep:
-Header — “Messages” + “Private chats and session notes with your clients”
-Left pane — search, rows with avatar, name, preview, time, unread, pin. Selected row is navy. Empty: “No client messages yet”
-Right pane — client header, thread. Own messages and client messages look different. Session notes look different from direct chat
-Composer — text, emoji, attachment. Show a rate-limit state
-On a narrow screen, list or thread, not both squeezed together
-
-Do not turn this into email.
+Already redesigned. Do not include it in the Magic Patterns prompt.
 
 ---
 
